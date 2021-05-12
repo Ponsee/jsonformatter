@@ -4,7 +4,9 @@ import { Layout, Row, Col } from 'antd';
 import "antd/dist/antd.css";
 import Editor from "@monaco-editor/react";
 import { Navbar } from "./Components/Navbar";
-import {Toolbar} from "./Components/Toolbar";
+import { Toolbar } from "./Components/Toolbar";
+import db from "./firebase";
+import { createGuid } from "./utils";
 
 function App() {
 
@@ -57,6 +59,8 @@ function App() {
     const { type, name } = value;
     if (type === "download") {
       downloadJsonFile(name)
+    } else if (type === "saveOnline") {
+      saveOnline(value);
     }
     setVisible(false);
   }
@@ -75,6 +79,32 @@ function App() {
 
   }
 
+  function saveOnline(value) {
+    const id = createGuid();
+    // const jsonDataRef = firebase.database().ref(`jsonData/${id}`);
+    const formatedValue = JSON.stringify(JSON.parse(resultEditorRef.current.getValue()), null, 2)
+    // if (jsonDataRef && value) {
+    //   const { name, description } = value;
+    //   jsonDataRef.set({
+    //     name: name,
+    //     description: description,
+    //     content: formatedValue
+
+    //   })
+    // }
+    try {
+      const { name, description } = value;
+      db.collection('jsonData').add({
+        id: id,
+        name: name,
+        description: description,
+        content: formatedValue
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="root">
       <Layout >
@@ -91,8 +121,8 @@ function App() {
             />
           </Col>
           <Col span={4}>
-            <Toolbar formatValue={formatValue} minifyValue={minifyValue} showPopup={showPopup} 
-            disiableBtn={disiableBtn} visible={visible} handleSave={handleSave} handleCancel={handleCancel} />
+            <Toolbar formatValue={formatValue} minifyValue={minifyValue} showPopup={showPopup}
+              disiableBtn={disiableBtn} visible={visible} handleSave={handleSave} handleCancel={handleCancel} />
           </Col>
           <Col span={10}>
             <Editor
