@@ -109,10 +109,10 @@ function App() {
     <div className="root">
       <Layout >
         <Navbar />
-        <Row>
+        <Row className="editor-row">
           <Col span={10}>
             <Editor
-              height="100vh"
+              height="80vh"
               defaultLanguage="json"
               defaultValue={value}
               onMount={handleEditorDidMount}
@@ -126,7 +126,7 @@ function App() {
           </Col>
           <Col span={10}>
             <Editor
-              height="100vh"
+              height="80vh"
               defaultLanguage="json"
               defaultValue={""}
               value={resultValue}

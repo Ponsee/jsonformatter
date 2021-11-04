@@ -1,6 +1,5 @@
 
 .root {
-  background-color: #1b1a1a;
   min-height: 100vh;
   display: flex;
   font-size: calc(10px + 2vmin);
@@ -9,8 +8,7 @@
 }
 
 .navbar{
-  background-color: #1b1a1a;
-  color: white;
+  color: #1b1a1a;
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid rgb(36, 36, 36);
@@ -22,4 +20,16 @@
 
 .navbarToolbar{
   float: right;
+}
+.editor-row{
+	padding: 20px;
+	background-color: #d4cfcf;
+}
+.toolbar-root{
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+.toolbar-btn{
+	margin-bottom: 10px;
 }
